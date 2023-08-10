@@ -18,6 +18,7 @@ package wait
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -43,7 +44,9 @@ func PollUntilContextCancel(ctx context.Context, interval time.Duration, immedia
 // The deadline context will be cancelled if the Poll succeeds before the timeout, simplifying
 // inline usage. All other behavior is identical to PollWithContextTimeout.
 func PollUntilContextTimeout(ctx context.Context, interval, timeout time.Duration, immediate bool, condition ConditionWithContextFunc) error {
+	fmt.Printf("+++++ value of timeout: %v\n", timeout)
 	deadlineCtx, deadlineCancel := context.WithTimeout(ctx, timeout)
+	fmt.Printf("+++++ value of deadlineCtx: %v\n", deadlineCtx)
 	defer deadlineCancel()
 	return loopConditionUntilContext(deadlineCtx, Backoff{Duration: interval}.Timer(), immediate, false, condition)
 }
