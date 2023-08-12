@@ -223,6 +223,7 @@ func (j *CommandUnjoinOption) deleteClusterObject(controlPlaneKarmadaClient *kar
 	}
 
 	// make sure the given cluster object has been deleted
+	fmt.Printf("+++++ value of j.Wait: %v\n", j.Wait)
 	err = wait.Poll(1*time.Second, j.Wait, func() (done bool, err error) {
 		_, err = controlPlaneKarmadaClient.ClusterV1alpha1().Clusters().Get(context.TODO(), j.ClusterName, metav1.GetOptions{})
 		if apierrors.IsNotFound(err) {
