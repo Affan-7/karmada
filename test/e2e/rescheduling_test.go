@@ -180,7 +180,6 @@ var _ = ginkgo.Describe("[cluster joined] reschedule testing", func() {
 				opts := unjoin.CommandUnjoinOption{
 					ClusterNamespace: "karmada-cluster",
 					ClusterName:      newClusterName,
-					Wait:             60 * time.Second,
 				}
 				err := opts.Run(f)
 				gomega.Expect(err).ShouldNot(gomega.HaveOccurred())
